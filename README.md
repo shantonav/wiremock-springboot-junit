@@ -1,27 +1,39 @@
-# Project Title
+# In-memory wiremock usage in Spring boot integration testing
 
-One Paragraph of project description goes here
+The idea of this project is to demonstrate if there are two services A and B and A consumes B, then even if B is not avaialble or undergoing change but the contract to consume B is same, then we can use in-memory WireMock to test the service call to B from A and test the hypothesis of the flow in service A. This project uses wiremock stubs to respond to calls from A to B and verifies that at least one call has been done.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Two simple Spring boot projects service-a and service-b . Both expose REST APIs. service-a consumes service-b. We are going to start only service-a and do an integration test of its REST API (with service-b being down or unavailable).
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
 ```
-Give examples
+- you need to have Maven at least 3.3.x + (download from https://archive.apache.org/dist/maven/maven-3/)
+- JDK 8 (download from here : https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- git client to checkout the repository (download from here: https://git-scm.com/downloads)
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+
+
 
 ```
-Give the example
+- First checkout the Git repository : git@github.com:shantonav/wiremock-springboot-junit.git using
+git clone git@github.com:shantonav/wiremock-springboot-junit.git
+
+- You can browse through the code using your favourite IDE (I use Intellij)
+
+- Go to service-a : cd service-a 
+mvn clean package
+
+Here you will notice the Spring boot JUnit test case : com.wiremock.exmaple.servicea.ServiceAApplicationTests
+
+- Go to service-b : cd ../service-b (if you already are under service-a) 
+mvn clean package
+  
 ```
 
 And repeat
