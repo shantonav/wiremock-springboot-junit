@@ -1,4 +1,4 @@
-package com.wiremock.exmaple.servicea.domain;
+package test.com.wiremock.exmaple.servicea.domain;
 
 public class ServiceBResponse implements ServiceResponse{
     public ServiceBResponse(String someTextForB, Integer someIntForB) {

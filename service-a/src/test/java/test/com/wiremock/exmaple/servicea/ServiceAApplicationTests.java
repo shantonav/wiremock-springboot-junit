@@ -1,12 +1,12 @@
-package com.wiremock.exmaple.servicea;
+package test.com.wiremock.exmaple.servicea;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
-import com.wiremock.exmaple.servicea.domain.MyDomainObject;
-import com.wiremock.exmaple.servicea.domain.OperationAResponse;
-import com.wiremock.exmaple.servicea.domain.ServiceBResponse;
+import test.com.wiremock.exmaple.servicea.domain.MyDomainObject;
+import test.com.wiremock.exmaple.servicea.domain.OperationAResponse;
+import test.com.wiremock.exmaple.servicea.domain.ServiceBResponse;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,9 +1,9 @@
-package com.wiremock.exmaple.servicea.communication;
+package test.com.wiremock.exmaple.servicea.communication;
 
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.LoggingFilter;
-import com.wiremock.exmaple.servicea.domain.MyDomainObject;
-import com.wiremock.exmaple.servicea.domain.ServiceBResponse;
+import test.com.wiremock.exmaple.servicea.domain.MyDomainObject;
+import test.com.wiremock.exmaple.servicea.domain.ServiceBResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;

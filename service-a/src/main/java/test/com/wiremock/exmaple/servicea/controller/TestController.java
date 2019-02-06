@@ -1,8 +1,8 @@
-package com.wiremock.exmaple.servicea.controller;
+package test.com.wiremock.exmaple.servicea.controller;
 
-import com.wiremock.exmaple.servicea.delegate.BusinessDelegate;
-import com.wiremock.exmaple.servicea.domain.MyDomainObject;
-import com.wiremock.exmaple.servicea.domain.OperationAResponse;
+import test.com.wiremock.exmaple.servicea.delegate.BusinessDelegate;
+import test.com.wiremock.exmaple.servicea.domain.MyDomainObject;
+import test.com.wiremock.exmaple.servicea.domain.OperationAResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

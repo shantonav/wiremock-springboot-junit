@@ -1,4 +1,4 @@
-package com.wiremock.exmaple.servicea;
+package test.com.wiremock.exmaple.servicea;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

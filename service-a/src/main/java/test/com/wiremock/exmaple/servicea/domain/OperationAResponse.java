@@ -1,4 +1,4 @@
-package com.wiremock.exmaple.servicea.domain;
+package test.com.wiremock.exmaple.servicea.domain;
 
 public class OperationAResponse implements ServiceResponse{
     private String someResponseText;

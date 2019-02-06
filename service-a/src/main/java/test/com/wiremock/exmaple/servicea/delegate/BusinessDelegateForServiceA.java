@@ -1,10 +1,9 @@
-package com.wiremock.exmaple.servicea.delegate;
+package test.com.wiremock.exmaple.servicea.delegate;
 
-import com.wiremock.exmaple.servicea.communication.AbstractServiceCommunicator;
-import com.wiremock.exmaple.servicea.communication.ServiceCommunicator;
-import com.wiremock.exmaple.servicea.domain.MyDomainObject;
-import com.wiremock.exmaple.servicea.domain.OperationAResponse;
-import com.wiremock.exmaple.servicea.domain.ServiceBResponse;
+import test.com.wiremock.exmaple.servicea.communication.ServiceCommunicator;
+import test.com.wiremock.exmaple.servicea.domain.MyDomainObject;
+import test.com.wiremock.exmaple.servicea.domain.OperationAResponse;
+import test.com.wiremock.exmaple.servicea.domain.ServiceBResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,12 +1,12 @@
-package com.wiremock.exmaple.servicea.communication;
+package test.com.wiremock.exmaple.servicea.communication;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.filter.ClientFilter;
-import com.wiremock.exmaple.servicea.domain.DomainObject;
-import com.wiremock.exmaple.servicea.domain.ServiceResponse;
+import test.com.wiremock.exmaple.servicea.domain.DomainObject;
+import test.com.wiremock.exmaple.servicea.domain.ServiceResponse;
 //import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.http.HttpMethod;
 
@@ -38,7 +38,7 @@ public abstract class AbstractServiceCommunicator<T extends ServiceResponse> imp
 
     protected  Client getClient(){ return this.client; }
 
-    protected  T communicte(DomainObject domainObject, Class<? extends ServiceResponse> repsonseType,HttpMethod httpMethod){
+    protected  T communicte(DomainObject domainObject, Class<? extends ServiceResponse> repsonseType, HttpMethod httpMethod){
         Client client = createClient();
 
         WebResource webResource = createWebResource();

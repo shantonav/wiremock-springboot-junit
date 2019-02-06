@@ -1,4 +1,4 @@
-package com.wiremock.exmaple.servicea.domain;
+package test.com.wiremock.exmaple.servicea.domain;
 
 import javax.validation.constraints.NotNull;
 
