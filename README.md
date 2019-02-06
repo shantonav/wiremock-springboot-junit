@@ -1,6 +1,7 @@
 # In-memory wiremock usage in Spring boot integration testing
 
-The idea of this project is to demonstrate if there are two services A and B and A consumes B, then even if B is not avaialble or undergoing change but the contract to consume B is same, then we can use in-memory WireMock to test the service call to B from A and test the hypothesis of the flow in service A. This project uses wiremock stubs to respond to calls from A to B and verifies that at least one call has been done.
+The idea of this project is to demonstrate :
+if there are two services A and B and A consumes B, then even if B is not avaialble or undergoing change but the contract to consume B is same, then we can use in-memory WireMock to test the service call to B from A and test the hypothesis of the flow in service A. This project uses wiremock stubs to respond to calls from A to B and verifies that at least one call has been done.
 
 ## Getting Started
 
@@ -29,71 +30,88 @@ git clone git@github.com:shantonav/wiremock-springboot-junit.git
 - Go to service-a : cd service-a 
 mvn clean package
 
-Here you will notice the Spring boot JUnit test case : com.wiremock.exmaple.servicea.ServiceAApplicationTests
+Here you will notice the Spring boot JUnit test case : com.wiremock.exmaple.servicea.ServiceAApplicationTests ( we will talk about this in detail later, read-on ).
 
 - Go to service-b : cd ../service-b (if you already are under service-a) 
 mvn clean package
   
-```
-
-And repeat
 
 ```
-until finished
-```
 
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Let us go through test case : _**com.wiremock.exmaple.servicea.ServiceAApplicationTests.testServiceBCallThroughAWireMock**_ in detail
 
-### Break down into end to end tests
+It is a Spring boot test which loads the context .
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
+The test uses a "test" profile that overrided the end-point to service-b to point to Wiremock instance instead of the actual service itself.
 
 ```
-Give an example
+@ActiveProfiles(value = "test")
+
+this lets Spring use the application-test.properties as the configuration 
+and this configuration points service-b URL to : 
+
+service.b.url=http://localhost:12111
 ```
 
-## Deployment
+The test also uses Spring boot MockMvc to consumer service-a API. And for that we use
+```
+@AutoConfigureMockMvc
 
-Add additional notes about how to deploy this on a live system
+this enables to the HTTP mock servlet withing the unit test
+```
 
-## Built With
+The all important part of the test is setting up the Wire mock using JUnit @Rule
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+    @Rule
+	public WireMockRule wireMockRule = new WireMockRule(12111);
+	
+	This starts the Wiremock server at localhost listening to port 12111
 
-## Contributing
+```
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Notice how the wiremock stub is created to the downstream service-b in a DSL style
+function calls. 
 
-## Versioning
+```
+stubFor(post(urlEqualTo("/serviceb/operationb"))
+				.willReturn(aResponse()
+						.withStatus(201)
+						.withHeader("Content-Type", javax.ws.rs.core.MediaType.APPLICATION_JSON)
+						.withBody(returnJSON)));
+The hypothesis being tested here is:
+- given a JSON request to service-a api /servicea/operationa listening on http POST
+- the API would return a JSON response 
+- with HTTP status code 201
+- the API consumes and produces JSON
+```
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+It is important to note 
+here that the objective of this demonstration is not to do end-2-end testing of API in
+service-a . We want to test the logical flow of api /servicea/operationa and to allow
+it to cross HTTP boundary but not call service-b , instead invoke wiremock stub (induced 
+behaviour in the application using modified end point and wiremock). 
+Then the flow further moves on with its flow.
 
-## Authors
+The test does verify whether we crossed HTTP boundary and invoked the wiremock stub 
+instead of the real service-b.
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+```
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+verify(postRequestedFor(urlEqualTo("/serviceb/operationb"))
+				.withHeader("Content-Type", equalTo(javax.ws.rs.core.MediaType.APPLICATION_JSON)));
 
-## License
+```
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+## Conslusion
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+This kind of stubeed integration testing gives the developer the much required confidence
+to do edge case testing where the api under test consumes a downstrea service.
+Especially suited for microservice architecture
+speeds up development lifecycle with quicker feedbacks and lesser heavy lifting
+at a much reduced boiler plate code for stubbing.
+
