@@ -45,7 +45,7 @@ Let us go through test case : _**com.wiremock.exmaple.servicea.ServiceAApplicati
 
 It is a Spring boot test which loads the context .
 
-The test uses a "test" profile that overrided the end-point to service-b to point to Wiremock instance instead of the actual service itself.
+The test uses a "test" profile that overrideS the end-point to service-b to point to Wiremock instance instead of the actual service itself.
 
 ```
 @ActiveProfiles(value = "test")
@@ -84,17 +84,17 @@ stubFor(post(urlEqualTo("/serviceb/operationb"))
 						.withBody(returnJSON)));
 The hypothesis being tested here is:
 - given a JSON request to service-b, api /serviceb/operationb listening on http POST
-- the API would return a JSON response 
+- the API is expected to return a JSON response 
 - with HTTP status code 201
 - the API consumes and produces JSON
 ```
 
-It is important to note 
+It is important to note
 here that the objective of this demonstration is not to do end-2-end testing of API in
 service-a . We want to test the logical flow of api /servicea/operationa and to allow
 it to cross HTTP boundary but not call service-b , instead invoke wiremock stub (induced 
 behaviour in the application using modified end point and wiremock). 
-Then the flow further moves on with its flow.
+Then the system further moves on with its flow.
 
 The test does verify whether we crossed HTTP boundary and invoked the wiremock stub 
 instead of the real service-b.
