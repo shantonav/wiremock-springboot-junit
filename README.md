@@ -83,7 +83,7 @@ stubFor(post(urlEqualTo("/serviceb/operationb"))
 						.withHeader("Content-Type", javax.ws.rs.core.MediaType.APPLICATION_JSON)
 						.withBody(returnJSON)));
 The hypothesis being tested here is:
-- given a JSON request to service-a api /serviceb/operationb listening on http POST
+- given a JSON request to service-b, api /serviceb/operationb listening on http POST
 - the API would return a JSON response 
 - with HTTP status code 201
 - the API consumes and produces JSON
